@@ -2,8 +2,8 @@
 
 namespace app\controllers;
 
-use app\models\Users;
-use app\models\UsersQuery;
+use app\models\User;
+use app\models\UserQuery;
 use Yii;
 use yii\db\StaleObjectException;
 use yii\web\Controller;
@@ -41,7 +41,7 @@ class UserController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new UsersQuery();
+        $searchModel = new UserQuery();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -71,10 +71,10 @@ class UserController extends Controller
      */
     public function actionSignUp()
     {
-        $model = new Users();
+        $model = new User();
 
         if ($model->load($this->request->post())) {
-            $existingUser = Users::find()->where(['username' => $model->username])->one();
+            $existingUser = User::find()->where(['username' => $model->username])->one();
             if ($existingUser) {
                 $model->addError('username', Yii::t('main', 'Registration already in use.'));
             } else {
@@ -99,9 +99,9 @@ class UserController extends Controller
      */
     public function actionSignIn()
     {
-        $model = new Users();
+        $model = new User();
         if ( $model->load($this->request->post())) {
-            $user = $model->username ? Users::find()->where(['username'=> $model->username])->one() :'';
+            $user = $model->username ? User::find()->where(['username'=> $model->username])->one() :'';
             if($user){
                 if(Yii::$app->getSecurity()->validatePassword($model->password, $user->password)) {
                     if (Yii::$app->user->login($model)) {

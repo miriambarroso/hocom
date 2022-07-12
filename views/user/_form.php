@@ -7,7 +7,7 @@ use app\models\Matriz;
 use \yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Users */
+/* @var $model app\models\User */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -15,9 +15,14 @@ use \yii\helpers\ArrayHelper;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'username')->textInput(
-            $options = ['disabled'=>(bool)$model->id]
-            )->label(Yii::t('main', 'Username')) ?>
+    <?= $form->field( $model, 'username')->widget(\yii\widgets\MaskedInput::class, [
+            'mask' => ['99999999999999'],
+            'options' =>['class' => 'required col-lg-3 form-control', 'disabled'=>(bool)$model->id],
+            'clientOptions' => [
+                'removeMaskOnSubmit' => true
+            ]
+        ])->label ( Yii::t('main', 'Username') )
+    ?>
 
     <?= $form->field($model, 'matriz_id')->widget(Select2::class, [
             'data' =>ArrayHelper::map( Matriz::find()->all(),'id',function ($e){

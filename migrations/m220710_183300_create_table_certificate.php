@@ -31,7 +31,7 @@ class m220710_183300_create_table_certificate extends Migration
             'fk_certificado_username',
             'certificado',
             'username',
-            'users',
+            'user',
             'username'
         );
 

@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\CertificadoQuery */
+/* @var $model app\models\SubeventoQuery */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="certificado-search">
+<div class="subevento-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -22,19 +22,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'nome') ?>
 
-    <?= $form->field($model, 'quantidade_de_horas') ?>
+    <?= $form->field($model, 'evento_id') ?>
 
-    <?= $form->field($model, 'validado') ?>
+    <?= $form->field($model, 'ativo') ?>
 
-    <?= $form->field($model, 'data') ?>
-
-    <?php // echo $form->field($model, 'username') ?>
-
-    <?php // echo $form->field($model, 'imagem') ?>
-
-    <?php // echo $form->field($model, 'subevento_id') ?>
-
-    <?php // echo $form->field($model, 'created_by') ?>
+    <?= $form->field($model, 'created_by') ?>
 
     <?php // echo $form->field($model, 'updated_by') ?>
 

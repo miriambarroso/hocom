@@ -60,7 +60,7 @@ class Evento extends \yii\db\ActiveRecord
     /**
      * Gets query for [[MatrizEventos]].
      *
-     * @return \yii\db\ActiveQuery|MatrizEventoQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getMatrizEventos()
     {
@@ -70,7 +70,7 @@ class Evento extends \yii\db\ActiveRecord
     /**
      * Gets query for [[MatrizSubeventos]].
      *
-     * @return \yii\db\ActiveQuery|MatrizSubeventoQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getMatrizSubeventos()
     {
@@ -80,7 +80,7 @@ class Evento extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Subeventos]].
      *
-     * @return \yii\db\ActiveQuery|SubeventoQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getSubeventos()
     {

@@ -21,7 +21,7 @@ class LoginFormTest extends \Codeception\Test\Unit
         ]);
 
         expect_not($this->model->login());
-        expect_that(\Yii::$app->user->isGuest);
+        expect_that(\Yii::$app->user->identity->id);
     }
 
     public function testLoginWrongPassword()
@@ -32,7 +32,7 @@ class LoginFormTest extends \Codeception\Test\Unit
         ]);
 
         expect_not($this->model->login());
-        expect_that(\Yii::$app->user->isGuest);
+        expect_that(\Yii::$app->user->identity->id);
         expect($this->model->errors)->hasKey('password');
     }
 
@@ -44,7 +44,7 @@ class LoginFormTest extends \Codeception\Test\Unit
         ]);
 
         expect_that($this->model->login());
-        expect_not(\Yii::$app->user->isGuest);
+        expect_not(\Yii::$app->user->identity->id);
         expect($this->model->errors)->hasntKey('password');
     }
 

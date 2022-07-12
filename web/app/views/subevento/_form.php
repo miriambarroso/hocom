@@ -4,27 +4,19 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Certificado */
+/* @var $model app\models\Subevento */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="certificado-form">
+<div class="subevento-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'nome')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'nome')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'quantidade_de_horas')->textInput() ?>
+    <?= $form->field($model, 'evento_id')->textInput() ?>
 
-    <?= $form->field($model, 'validado')->textInput() ?>
-
-    <?= $form->field($model, 'data')->textInput() ?>
-
-    <?= $form->field($model, 'username')->textInput() ?>
-
-    <?= $form->field($model, 'imagem')->textInput() ?>
-
-    <?= $form->field($model, 'subevento_id')->textInput() ?>
+    <?= $form->field($model, 'ativo')->textInput() ?>
 
     <?= $form->field($model, 'created_by')->textInput() ?>
 

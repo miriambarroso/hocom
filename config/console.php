@@ -26,21 +26,29 @@ $config = [
             ],
         ],
         'db' => $db,
+        'authManager'  => [
+            'class'=> 'yii\rbac\DbManager',
+        ],
+        'view' => [
+            'theme' => [
+                'pathMap' => [
+                    '@Da/User/resources/views' => '@app/views/user'
+                ]
+            ]
+        ]
     ],
     'params' => $params,
-    'modules'=>[
-        'user-management' => [
-            'class' => 'webvimark\modules\UserManagement\UserManagementModule',
-            'controllerNamespace'=>'vendor\webvimark\modules\UserManagement\controllers', // To prevent yii help from crashing
-        ],
-    ],
-    /*
     'controllerMap' => [
-        'fixture' => [ // Fixture generation command line.
-            'class' => 'yii\faker\FixtureController',
+        'migrate' => [
+            'class' => \yii\console\controllers\MigrateController::class,
+            'migrationNamespaces' => [
+                'Da\User\Migration',
+            ],
         ],
+        /*'fixture' => [ // Fixture generation command line.
+            'class' => 'yii\faker\FixtureController',
+        ],*/
     ],
-    */
 ];
 
 if (YII_ENV_DEV) {

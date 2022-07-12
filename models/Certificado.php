@@ -22,6 +22,7 @@ use yii\db\ActiveQuery;
  * @property string|null $updated_at
  *
  * @property Subevento $subevento
+ * @property User $user
  */
 class Certificado extends \yii\db\ActiveRecord
 {
@@ -80,13 +81,13 @@ class Certificado extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Username0]].
+     * Gets query for [[User]].
      *
      * @return ActiveQuery
      */
-    public function getUsername()
+    public function getUser()
     {
-        return $this->hasOne(Users::class, ['username' => 'username']);
+        return $this->hasOne(User::class, ['username' => 'username']);
     }
 
 }

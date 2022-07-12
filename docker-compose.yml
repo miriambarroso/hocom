@@ -10,7 +10,7 @@ services:
       - /var/lib/mysql
     command: --default-authentication-plugin=mysql_native_password --max_connections=1024
     env_file:
-      - .env
+      - .env-db
 
   app:
     container_name: hocom_app
@@ -29,7 +29,7 @@ services:
     extra_hosts:
       - 'host.docker.internal:host-gateway'
     env_file:
-      - .env
+      - .env-app
     command: bash -c "composer install && php yii migrate --interactive=0 && supervisord -c /etc/supervisor/supervisord.conf && chmod -R 777 /app/runtime /app/web/assets"
   adminer:
     image: adminer

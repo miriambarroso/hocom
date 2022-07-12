@@ -1,24 +1,23 @@
 <?php
 
-use app\models\Certificado;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\CertificadoQuery */
+/* @var $searchModel app\models\EventoQuery */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Certificados');
+$this->title = Yii::t('app', 'Eventos');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="certificado-index">
+<div class="evento-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create Certificado'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Create Evento'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php Pjax::begin(); ?>
@@ -32,19 +31,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'nome',
-            'quantidade_de_horas',
-            'validado',
-            'data',
-            //'username',
-            //'imagem',
-            //'subevento_id',
-            //'created_by',
-            //'updated_by',
+            'ativo',
+            'created_by',
+            'updated_by',
             //'created_at',
             //'updated_at',
             [
-                'class' => ActionColumn::class,
-                'urlCreator' => function ($action, Certificado $model, $key, $index, $column) {
+                'class' => ActionColumn::className(),
+                'urlCreator' => function ($action, Evento $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
                 }
             ],

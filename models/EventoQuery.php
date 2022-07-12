@@ -2,33 +2,72 @@
 
 namespace app\models;
 
-/**
- * This is the ActiveQuery class for [[Evento]].
- *
- * @see Evento
- */
-class EventoQuery extends \yii\db\ActiveQuery
-{
-    /*public function active()
-    {
-        return $this->andWhere('[[status]]=1');
-    }*/
+use yii\base\Model;
+use yii\data\ActiveDataProvider;
+use app\models\Evento;
 
+/**
+ * EventoQuery represents the model behind the search form of `app\models\Evento`.
+ */
+class EventoQuery extends Evento
+{
     /**
      * {@inheritdoc}
-     * @return Evento[]|array
      */
-    public function all($db = null)
+    public function rules()
     {
-        return parent::all($db);
+        return [
+            [['id', 'ativo', 'created_by', 'updated_by'], 'integer'],
+            [['nome', 'created_at', 'updated_at'], 'safe'],
+        ];
     }
 
     /**
      * {@inheritdoc}
-     * @return Evento|array|null
      */
-    public function one($db = null)
+    public function scenarios()
     {
-        return parent::one($db);
+        // bypass scenarios() implementation in the parent class
+        return Model::scenarios();
+    }
+
+    /**
+     * Creates data provider instance with search query applied
+     *
+     * @param array $params
+     *
+     * @return ActiveDataProvider
+     */
+    public function search($params)
+    {
+        $query = Evento::find();
+
+        // add conditions that should always apply here
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'id' => $this->id,
+            'ativo' => $this->ativo,
+            'created_by' => $this->created_by,
+            'updated_by' => $this->updated_by,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ]);
+
+        $query->andFilterWhere(['like', 'nome', $this->nome]);
+
+        return $dataProvider;
     }
 }

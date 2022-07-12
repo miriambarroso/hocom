@@ -22,12 +22,6 @@ $config = [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
-        'user' => [
-            'identityClass' => 'app\models\Users',
-            'enableAutoLogin' => true,
-            'enableSession' => true,
-
-        ],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
@@ -54,6 +48,9 @@ $config = [
             'rules' => [
             ],
         ],
+        'authManager'  => [
+            'class' => 'yii\rbac\DbManager',
+        ],
         'i18n' => [
             'translations' => [
                 'main*' => [
@@ -67,16 +64,15 @@ $config = [
                 ],
             ],
         ],
+        'view' => [
+            'theme' => [
+                'pathMap' => [
+                    '@Da/User/resources/views' => '@app/views/user'
+                ]
+            ]
+        ]
     ],
     'modules' => [
-        'user-management' => [
-            'class' => 'webvimark\modules\UserManagement\UserManagementModule',
-            'on beforeAction'=>function(yii\base\ActionEvent $event) {
-                if ( $event->action->uniqueId == 'user-management/auth/login' ){
-                    $event->action->controller->layout = 'loginLayout.php';
-                };
-            },
-        ],
         'gridview' => [
             'class' => '\kartik\grid\Module',
         ],
@@ -86,6 +82,12 @@ $config = [
         ],
         'datecontrol' => [
             'class' => '\kartik\datecontrol\Module',
+        ],
+        'user' => [
+            'class' => \Da\User\Module::class,
+            'allowAccountDelete' => true,
+            'enableRegistration' => false,
+            'administratorPermissionName' => 'user-management',
         ],
     ],
     'params' => $params,

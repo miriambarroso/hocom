@@ -18,7 +18,7 @@ use Yii;
  * @property string|null $updated_at
  *
  * @property MatrizEvento[] $thisEventos
- * @property Users[] $users
+ * @property User[] $users
  */
 class Matriz extends \yii\db\ActiveRecord
 {
@@ -94,12 +94,12 @@ class Matriz extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Users]].
+     * Gets query for [[User]].
      *
      * @return \yii\db\ActiveQuery
      */
     public function getUsers()
     {
-        return $this->hasMany(Users::class, ['matriz_id' => 'id']);
+        return $this->hasMany(User::class, ['matriz_id' => 'id']);
     }
 }

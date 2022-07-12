@@ -1,7 +1,7 @@
 <?php
 
 use app\models\Matriz;
-use app\models\Users;
+use app\models\User;
 use kartik\grid\GridView;
 use kartik\select2\Select2;
 use yii\helpers\ArrayHelper;
@@ -11,8 +11,8 @@ use yii\grid\ActionColumn;
 use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Users */
-/* @var $searchModel app\models\UsersQuery */
+/* @var $model app\models\User */
+/* @var $searchModel app\models\UserQuery */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = Yii::t('app', 'Users');
@@ -59,7 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'ativo',
             [
                 'class' => ActionColumn::class,
-                'urlCreator' => function ($action, Users $model, $key, $index, $column) {
+                'urlCreator' => function ($action, User $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
                 }
             ],

@@ -43,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php ActiveForm::end(); ?>
 
-    <div class="offset-lg-1" style="color:#999;">
-        <a href="<?=Url::to(['user/sign-up'])?>"> <?=Yii::t('main','Register')?></a>
+    <div class = "offset-lg-1" style="color:#999;">
+        <?= Html::a( Url::to(['site/sign-up']), Url::to(['site/sign-up']) ) ?>
     </div>
 </div>

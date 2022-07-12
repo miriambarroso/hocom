@@ -5,10 +5,9 @@ namespace app\models;
 use Yii;
 use yii\base\Exception;
 use yii\db\ActiveQuery;
-use yii\web\IdentityInterface;
-
+use Da\User\Model\User as BaseUser;
 /**
- * This is the model class for table "{{%users}}".
+ * This is the model class for table "{{%user}}".
  *
  * @property int $id
  * @property int|null $username
@@ -26,14 +25,14 @@ use yii\web\IdentityInterface;
  * @property Matriz $matriz
  * @property string|null $matrizName
  */
-class Users extends \yii\db\ActiveRecord implements IdentityInterface
+class User extends BaseUser
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'users';
+        return 'user';
     }
 
     /**
@@ -115,38 +114,5 @@ class Users extends \yii\db\ActiveRecord implements IdentityInterface
     public function getUsername()
     {
         return $this->username;
-    }
-
-
-    public static function findIdentity($id)
-    {
-        return static::findOne($id);
-    }
-
-    public static function findIdentityByAccessToken($token, $type = null)
-    {
-        return static::findOne(['access_token' => $token]);
-    }
-
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return string a chave de autenticação do usuário atual
-     */
-    public function getAuthKey()
-    {
-        return $this->auth_key;
-    }
-
-    /**
-     * @param string $authKey
-     * @return bool se a chave de autenticação do usuário atual for válida
-     */
-    public function validateAuthKey($authKey)
-    {
-        return $this->getAuthKey() === $authKey;
     }
 }

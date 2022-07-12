@@ -36,7 +36,7 @@ AppAsset::register($this);
 <header>
     <?php
     NavBar::begin([
-        'brandLabel' => Yii::$app->name,
+        'brandLabel' => Yii::t('main', 'HOCOM'),
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar navbar-expand-md navbar-dark bg-dark fixed-top',
@@ -48,15 +48,16 @@ AppAsset::register($this);
             ['label' => Yii::t('main','Home'), 'url' => ['/site/index']],
             ['label' => Yii::t('main','Users'), 'url' => ['/user/index']],
             ['label' => Yii::t('main','Certificado'), 'url' => ['/certificado/index']],
-            ['label' => Yii::t('main','Evento'), 'url' => ['/event/index']],
-            ['label' => Yii::t('main','Sub-evento'), 'url' => ['/event/index']],
-            Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/user/sign-in']]
+            ['label' => Yii::t('main','Evento'), 'url' => ['/evento/index']],
+            ['label' => Yii::t('main','Sub-evento'), 'url' => ['/subevento/index']],
+            ['label' => Yii::t('main','Matriz'), 'url' => ['/matriz/index']],
+            !Yii::$app->user->identity ? (
+                ['label' => Yii::t('main', 'Login') , 'url' => ['/site/login']]
             ) : (
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
                 . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
+                    Yii::t('main', 'Logout').' (' . Yii::$app->user->identity->username . ')',
                     ['class' => 'btn btn-link logout']
                 )
                 . Html::endForm()

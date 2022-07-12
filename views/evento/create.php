@@ -3,13 +3,13 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Subevento */
+/* @var $model app\models\Evento */
 
-$this->title = Yii::t('app', 'Create Subevento');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Subeventos'), 'url' => ['index']];
+$this->title = Yii::t('app', 'Create Evento');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Eventos'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="subevento-create">
+<div class="evento-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

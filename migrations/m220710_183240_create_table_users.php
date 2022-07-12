@@ -12,23 +12,13 @@ class m220710_183240_create_table_users extends Migration
      */
     public function safeUp()
     {
-        $this->createTable('users', [
-            'id' =>  $this->primaryKey(),
-            'username' => $this->bigInteger()->unique(),
-            'role' => "ENUM('gestor', 'estudante')",
-            'password' => $this->string(),
-            'matriz_id' => $this->integer(),
-            'auth_key' => $this->string(),
-            'ativo' => $this->tinyInteger()->defaultValue(true),
-            'created_by' => $this->integer(),
-            'updated_by' => $this->integer(),
-            'created_at' => $this->timestamp(),
-            'updated_at' => $this->timestamp(),
-        ]);
-
+        $this->addColumn('user', 'matriz_id', $this->integer());
+        $this->addColumn('user', 'role', "ENUM('gestor', 'estudante')");
+        $this->alterColumn('user', 'username', $this->bigInteger());
+        $this->createIndex('index_user_username', 'user', 'username', true);
         $this->addForeignKey(
-            'fk_users_matriz_id',
-            'users',
+            'fk_user_matriz_id',
+            'user',
             'matriz_id',
             'matriz',
             'id'
@@ -40,7 +30,11 @@ class m220710_183240_create_table_users extends Migration
      */
     public function safeDown()
     {
-        $this->dropTable('users');
+        $this->dropForeignKey('fk_user_matriz_id', 'user');
+        $this->alterColumn('user', 'username', $this->string());
+        $this->dropColumn('user', 'matriz_id');
+        $this->dropColumn('user', 'role');
+        $this->dropIndex('index_user_username', 'user');
     }
 
 }

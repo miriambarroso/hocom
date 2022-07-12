@@ -1,7 +1,7 @@
 <?php
 
 use app\models\Subevento;
-use app\models\Users;
+use app\models\User;
 use kartik\select2\Select2;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -42,7 +42,7 @@ use kartik\date\DatePicker;
         ]) ?>
 
     <?= $form->field($model, 'username')->widget(Select2::class, [
-        'data' =>ArrayHelper::map( Users::find()->all(),'username','username'),
+        'data' =>ArrayHelper::map( User::find()->all(),'username','username'),
         'options' => [
             'placeholder' => Yii::t('main','Select o username'),
             'disabled' => (bool)$model->id,
