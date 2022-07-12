@@ -1,0 +1,45 @@
+<?php
+
+/**
+ * Translation map for pt-BR
+ */
+return [
+    'welcome' => 'Bem-vindo',
+    'The requested page does not exist.' => 'A página requisitada não existe.',
+    'ID' => 'Código',
+    'Token' => 'Token',
+    'Home' => 'Início',
+    'Users' => 'Usuários',
+    'Certificado' => 'Certificado',
+    'User could not be deleted.' => 'Usuário não pôde ser deletado.',
+    'Event' => 'Evento',
+    'Select a matriz' => 'Selecione a matriz',
+    'Sub Event' => 'Sub-evento',
+    'Login' => 'Login',
+    'Confirmation Password' => 'Confirmação de senha',
+    'Name' => 'Nome',
+    'Logout' => 'Logout',
+    'Register' => 'Registre-se',
+    'Validate' => 'Validado',
+    'Date' => 'Data',
+    'Registration' => 'Matrícula',
+    'Role' => 'Papel',
+    'Registration not found.' => '',
+    'Registration or password incorrect.' => '',
+    'Registration already in use.' => 'Matrícula já está em uso.',
+    'Internal error. Try again later.' => 'Erro interno. Tente novamente mais tarde.',
+    'Hours' => 'Horas',
+    'Start Date' => 'Data de início',
+    'End Date' => 'Data de fim',
+    'Active' => 'Ativo',
+    'Password' => 'Senha',
+    'Save' => 'Salvar',
+    'Password Confirmation' => 'Confirmação de senha',
+    'User' => 'Usuário',
+    'Created By' => 'Criado por',
+    'Created At' => 'Criado às',
+    'Updated By' => 'Atualizado por',
+    'Updated At' => 'Atualizado às',
+    'Sub Event ID' => 'Sub-evento',
+
+];

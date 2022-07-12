@@ -1,0 +1,37 @@
+version: '3.5'
+services:
+  db:
+    container_name: hocom_db
+    image: mysql:latest
+    restart: unless-stopped
+    ports:
+      - '3306:3306'
+    volumes:
+      - /var/lib/mysql
+    command: --default-authentication-plugin=mysql_native_password --max_connections=1024
+    env_file:
+      - .env
+
+  app:
+    container_name: hocom_app
+    build: .
+    restart: unless-stopped
+    depends_on:
+      - db
+    ports:
+      - '8080:80'
+      - '8081:443'
+    volumes:
+      - ./.:/app
+    tmpfs:
+      - /app/runtime
+      - /app/web/assets
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    env_file:
+      - .env
+    command: bash -c "composer install && php yii migrate --interactive=0 && supervisord -c /etc/supervisor/supervisord.conf && chmod -R 777 /app/runtime /app/web/assets"
+  adminer:
+    image: adminer
+    ports:
+      - '7780:8081'
