@@ -11,6 +11,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\Response;
+use yii\web\UploadedFile;
 
 /**
  * CertificadoController implements the CRUD actions for Certificado model.
@@ -115,9 +116,12 @@ class CertificadoController extends Controller
     {
         $model = new Certificado();
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+        if ($model->load($this->request->post())) {
+            $model->imagem = UploadedFile::getInstance($model, 'imagem');
+            if ($model->save() && $model->upload()) {
                 return $this->redirect(['view', 'id' => $model->id]);
+            } else {
+                return json_encode($model->errors);
             }
         } else {
             $model->loadDefaultValues();

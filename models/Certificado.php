@@ -3,7 +3,9 @@
 namespace app\models;
 
 use Yii;
+use yii\behaviors\AttributeBehavior;
 use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "{{%certificado}}".
@@ -26,6 +28,34 @@ use yii\db\ActiveQuery;
  */
 class Certificado extends \yii\db\ActiveRecord
 {
+
+    public function behaviors()
+    {
+        return [
+            'dateBeforeSave' => [
+                'class' => AttributeBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => 'data',
+                    ActiveRecord::EVENT_BEFORE_UPDATE => 'data',
+                ],
+                'value' => function($event) {
+                    $dateArray = explode('/', $this->data);
+                    return $dateArray[2] . '-' . $dateArray[1] . '-'. $dateArray[0];
+                }
+            ],
+            'dateAfterFind' => [
+                'class' => AttributeBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_AFTER_FIND => 'data'
+                ],
+                'value' => function($event) {
+                    $dateArray = explode('-', $this->data);
+                    return $dateArray[2] . '/' . $dateArray[1] . '/'. $dateArray[0];
+                }
+            ]
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -68,6 +98,16 @@ class Certificado extends \yii\db\ActiveRecord
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
         ];
+    }
+
+    public function upload()
+    {
+        if ($this->validate()) {
+            $this->imagem->saveAs('uploads/' . $this->imagem->baseName . '.' . $this->imagem->extension);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**

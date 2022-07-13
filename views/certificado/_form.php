@@ -37,7 +37,7 @@ use kartik\date\DatePicker;
                     'yearRange' => '1980:'.date('Y'),
                 ],
             ],
-               'pluginOptions' => ['minDate' => '2010-01-01']
+               'pluginOptions' => ['startDate' => '01/01/2010']
 
         ]) ?>
 

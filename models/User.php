@@ -44,6 +44,7 @@ class User extends BaseUser
             [['role'], 'string'],
             [['password', 'auth_key', 'email'], 'string', 'max' => 255],
             [['username'], 'unique'],
+            [['email'], 'default', 'value' => ''],
             [['matriz_id'], 'exist', 'skipOnError' => true, 'targetClass' => Matriz::class, 'targetAttribute' => ['matriz_id' => 'id']],
             [['role'], 'default', 'value' => 'estudante'],
         ];

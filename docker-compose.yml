@@ -30,7 +30,7 @@ services:
       - 'host.docker.internal:host-gateway'
     env_file:
       - .env-app
-    command: bash -c "composer install && php yii migrate --interactive=0 && supervisord -c /etc/supervisor/supervisord.conf && chmod -R 777 /app/runtime /app/web/assets"
+    command: bash -c "chmod -R 777 /app/runtime /app/web/assets /app/web/uploads && composer install && php yii migrate --interactive=0 && supervisord -c /etc/supervisor/supervisord.conf"
   adminer:
     image: adminer
     ports:

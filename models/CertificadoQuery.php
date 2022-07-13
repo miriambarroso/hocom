@@ -77,4 +77,10 @@ class CertificadoQuery extends Certificado
 
         return $dataProvider;
     }
+
+    public function searchUserCertificados($params)
+    {
+        ArrayHelper::setValue($params, 'username',  Yii::$app->user->identity->username);
+        return $this->search($params);
+    }
 }

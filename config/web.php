@@ -70,7 +70,11 @@ $config = [
                     '@Da/User/resources/views' => '@app/views/user'
                 ]
             ]
-        ]
+        ],
+        'session' => [
+            'class' => \yii\web\Session::class,
+            'name' => 'app'
+        ],
     ],
     'modules' => [
         'gridview' => [

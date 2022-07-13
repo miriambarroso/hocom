@@ -107,7 +107,7 @@ class SiteController extends Controller
             if ($existingUser) {
                 $model->addError('username', Yii::t('main', 'Registration already in use.'));
             } else {
-                $model->password = Yii::$app->getSecurity()->generatePasswordHash($model->password);
+                $model->password_hash = Yii::$app->getSecurity()->generatePasswordHash($model->password);
                 if ($model->save()) {
                     return $this->redirect(['sign-in']);
                 } else {
@@ -129,10 +129,10 @@ class SiteController extends Controller
     public function actionSignIn()
     {
         $model = new User();
-        if ( $model->load($this->request->post())) {
+        if ($model->load($this->request->post())) {
             $user = $model->username ? User::find()->where(['username'=> $model->username])->one() :'';
             if($user){
-                if(Yii::$app->getSecurity()->validatePassword($model->password, $user->password)) {
+                if(Yii::$app->getSecurity()->validatePassword($model->password, $user->password_hash)) {
                     if (Yii::$app->user->login($model)) {
                         return $this->redirect(['index']);
                     }

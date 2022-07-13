@@ -18,7 +18,7 @@ WORKDIR /app
 RUN echo "memory_limit=1024M" > /usr/local/etc/php/conf.d/memory_limit.ini
 RUN echo "date.timezone=America/Sao_Paulo" > /usr/local/etc/php/conf.d/timezone.ini
 
-RUN chmod -R 777 /app/runtime /app/web/assets
-RUN chown -R www-data:www-data /app/runtime /app/web/assets
+RUN chmod -R 777 /app/runtime /app/web/assets /app/web/uploads
+RUN chown -R www-data:www-data /app/runtime /app/web/assets /app/web/uploads
 
 CMD bash -c "composer install --optimize-autoloader --no-dev && php yii migrate --interactive=0 && supervisord -c /etc/supervisor/supervisord.conf"
