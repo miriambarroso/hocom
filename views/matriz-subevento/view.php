@@ -4,14 +4,14 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Certificado */
+/* @var $model app\models\MatrizSubevento */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Certificados'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Matriz Subeventos'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="certificado-view">
+<div class="matriz-subevento-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -30,13 +30,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'nome',
-            'quantidade_de_horas',
-            'validado',
-            'data',
-            'username',
-            'imagem',
+            'evento_id',
             'subevento_id',
+            'matriz_evento_id',
+            'carga_horaria_max',
+            'created_by',
+            'updated_by',
+            'created_at',
+            'updated_at',
         ],
     ]) ?>
 

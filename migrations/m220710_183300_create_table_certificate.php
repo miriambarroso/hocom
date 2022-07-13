@@ -17,7 +17,7 @@ class m220710_183300_create_table_certificate extends Migration
             'nome' => $this->string(),
             'quantidade_de_horas' => $this->smallInteger(),
             'validado' => $this->boolean(),
-            'data' => $this->dateTime(),
+            'data' => $this->date(),
             'username' => $this->bigInteger(),
             'imagem' => $this->binary(),
             'subevento_id' => $this->integer(),

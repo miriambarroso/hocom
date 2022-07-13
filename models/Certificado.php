@@ -45,7 +45,7 @@ class Certificado extends \yii\db\ActiveRecord
             [['imagem'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg'],
             [['nome'], 'string', 'max' => 255],
             [['subevento_id'], 'exist', 'skipOnError' => true, 'targetClass' => Subevento::class, 'targetAttribute' => ['subevento_id' => 'id']],
-            [['username'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['username' => 'username']],
+            [['username'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['username' => 'username']],
         ];
     }
 

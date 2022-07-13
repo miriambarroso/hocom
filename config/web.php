@@ -85,6 +85,7 @@ $config = [
         ],
         'user' => [
             'class' => \Da\User\Module::class,
+            'viewPath' => '@app/views/user',
             'allowAccountDelete' => true,
             'enableRegistration' => false,
             'administratorPermissionName' => 'user-management',

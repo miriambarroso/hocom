@@ -4,7 +4,9 @@ namespace app\controllers;
 
 use app\models\Certificado;
 use app\models\CertificadoQuery;
+use Da\User\Filter\AccessRuleFilter;
 use Yii;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -16,21 +18,48 @@ use yii\web\Response;
 class CertificadoController extends Controller
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function behaviors()
     {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::class,
-                    'actions' => [
-                        'delete' => ['POST'],
-                    ],
+        return [
+            'verbs' => [
+                'class' => VerbFilter::class,
+                'actions' => [
+                    'delete' => ['POST'],
                 ],
+            ],
+            'access' => [
+                'class' => AccessControl::class,
+                'ruleConfig' => [
+                    'class' => AccessRuleFilter::class,
+                ],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['create', 'update', 'view', 'delete', 'index'],
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['meus-certificados'],
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['update'],
+                        'roles' => ['@'],
+                        'matchCallback' => function ($rule, $action) {
+                                if ( Yii::$app->user->identity->hasRole('gestor')){
+                                    return true;
+                                }
+
+                        }
+                    ],
+
+                ]
             ]
-        );
+        ];
     }
 
     /**
@@ -42,6 +71,21 @@ class CertificadoController extends Controller
     {
         $searchModel = new CertificadoQuery();
         $dataProvider = $searchModel->search($this->request->queryParams);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+    /**
+     * Lists user's Certificados models.
+     *
+     * @return string
+     */
+    public function actionMeusCertificados()
+    {
+        $searchModel = new CertificadoQuery();
+        $dataProvider = $searchModel->searchUserCertificados($this->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -94,7 +138,6 @@ class CertificadoController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }

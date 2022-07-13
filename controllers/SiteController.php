@@ -26,7 +26,7 @@ class SiteController extends Controller
                 'only' => ['logout'],
                 'rules' => [
                     [
-                        'actions' => ['logout'],
+                        'actions' => ['logout', 'users'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -60,10 +60,13 @@ class SiteController extends Controller
     /**
      * Displays homepage.
      *
-     * @return string
+     * @return Response|string
      */
     public function actionIndex()
     {
+        if(!Yii::$app->user->identity){
+            return $this->redirect('/site/sign-in');
+        }
         return $this->render('index');
     }
 

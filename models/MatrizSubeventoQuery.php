@@ -2,33 +2,73 @@
 
 namespace app\models;
 
-/**
- * This is the ActiveQuery class for [[MatrizSubevento]].
- *
- * @see MatrizSubevento
- */
-class MatrizSubeventoQuery extends \yii\db\ActiveQuery
-{
-    /*public function active()
-    {
-        return $this->andWhere('[[status]]=1');
-    }*/
+use yii\base\Model;
+use yii\data\ActiveDataProvider;
+use app\models\MatrizSubevento;
 
+/**
+ * MatrizSubeventoQuery represents the model behind the search form of `app\models\MatrizSubevento`.
+ */
+class MatrizSubeventoQuery extends MatrizSubevento
+{
     /**
      * {@inheritdoc}
-     * @return MatrizSubevento[]|array
      */
-    public function all($db = null)
+    public function rules()
     {
-        return parent::all($db);
+        return [
+            [['id', 'evento_id', 'subevento_id', 'matriz_evento_id', 'carga_horaria_max', 'created_by', 'updated_by'], 'integer'],
+            [['created_at', 'updated_at'], 'safe'],
+        ];
     }
 
     /**
      * {@inheritdoc}
-     * @return MatrizSubevento|array|null
      */
-    public function one($db = null)
+    public function scenarios()
     {
-        return parent::one($db);
+        // bypass scenarios() implementation in the parent class
+        return Model::scenarios();
+    }
+
+    /**
+     * Creates data provider instance with search query applied
+     *
+     * @param array $params
+     *
+     * @return ActiveDataProvider
+     */
+    public function search($params)
+    {
+        $query = MatrizSubevento::find();
+
+        // add conditions that should always apply here
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'id' => $this->id,
+            'evento_id' => $this->evento_id,
+            'subevento_id' => $this->subevento_id,
+            'matriz_evento_id' => $this->matriz_evento_id,
+            'carga_horaria_max' => $this->carga_horaria_max,
+            'created_by' => $this->created_by,
+            'updated_by' => $this->updated_by,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ]);
+
+        return $dataProvider;
     }
 }

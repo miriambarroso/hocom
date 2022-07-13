@@ -4,8 +4,10 @@ namespace app\controllers;
 
 use app\models\User;
 use app\models\UserQuery;
+use Da\User\Filter\AccessRuleFilter;
 use Yii;
 use yii\db\StaleObjectException;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -17,21 +19,31 @@ use yii\web\Response;
 class UserController extends Controller
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function behaviors()
     {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::class,
-                    'actions' => [
-                        'delete' => ['POST'],
-                    ],
+        return [
+            'verbs' => [
+                'class' => VerbFilter::class,
+                'actions' => [
+                    'delete' => ['POST'],
                 ],
+            ],
+            'access' => [
+                'class' => AccessControl::class,
+                'ruleConfig' => [
+                    'class' => AccessRuleFilter::class,
+                ],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['create', 'update', 'view', 'delete', 'index'],
+                        'roles' => ['@'],
+                    ]
+                ]
             ]
-        );
+        ];
     }
 
     /**

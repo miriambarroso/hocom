@@ -25,25 +25,25 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
 
-        <?= $form->field($model, 'username')->widget(\yii\widgets\MaskedInput::class, [
-            'mask' => ['99999999999999'],
-            'options' =>['class' => 'required col-lg-3 form-control'],
-            'clientOptions' => [
-                'removeMaskOnSubmit' => true
-            ]
-        ]);?>
+    <?= $form->field($model, 'login')->widget(\yii\widgets\MaskedInput::class, [
+        'mask' => ['99999999999999'],
+        'options' =>['class' => 'required col-lg-3 form-control'],
+        'clientOptions' => [
+            'removeMaskOnSubmit' => true
+        ]
+    ]);?>
 
-        <?= $form->field($model, 'password')->passwordInput() ?>
+    <?= $form->field($model, 'password')->passwordInput() ?>
 
-        <div class="form-group">
-            <div class="offset-lg-1 col-lg-11">
-                <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
-            </div>
+    <div class="form-group">
+        <div class="offset-lg-1 col-lg-11">
+            <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
         </div>
+    </div>
 
     <?php ActiveForm::end(); ?>
 
     <div class = "offset-lg-1" style="color:#999;">
-        <?= Html::a( Yii::t( 'main','Register' ), Url::to(['/site/sign-up']) ) ?>
+        <?= Html::a(Yii::t('main', 'Register'), Url::to(['/site/sign-up'])) ?>
     </div>
 </div>

@@ -30,7 +30,7 @@ use kartik\date\DatePicker;
                 'format' => 'dd/mm/yyyy',
                 'required'=>true,
                 'autoclose' => true,
-                'minDate' => '2010-01-01',
+                'minDate' => '01/01/2010',
                 'clientOptions' => [
                     'changeMonth' => true,
                     'changeYear' => true,

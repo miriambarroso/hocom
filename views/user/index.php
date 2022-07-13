@@ -56,7 +56,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw'
             ],
             'role',
-            'ativo',
             [
                 'class' => ActionColumn::class,
                 'urlCreator' => function ($action, User $model, $key, $index, $column) {

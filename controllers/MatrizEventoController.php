@@ -2,8 +2,39 @@
 
 namespace app\controllers;
 
+use Da\User\Filter\AccessRuleFilter;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
+
 class MatrizEventoController extends \yii\web\Controller
 {
+    /**
+     * {@inheritdoc}
+     */
+    public function behaviors()
+    {
+        return [
+            'verbs' => [
+                'class' => VerbFilter::class,
+                'actions' => [
+                    'delete' => ['POST'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::class,
+                'ruleConfig' => [
+                    'class' => AccessRuleFilter::class,
+                ],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['create', 'update', 'view', 'delete', 'index'],
+                        'roles' => ['@'],
+                    ]
+                ]
+            ]
+        ];
+    }
     public function actionCreate()
     {
         return $this->render('create');

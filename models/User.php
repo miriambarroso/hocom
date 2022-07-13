@@ -2,10 +2,13 @@
 
 namespace app\models;
 
+use Psr\Container\NotFoundExceptionInterface;
 use Yii;
 use yii\base\Exception;
 use yii\db\ActiveQuery;
 use Da\User\Model\User as BaseUser;
+use yii\db\ActiveRecord;
+
 /**
  * This is the model class for table "{{%user}}".
  *
@@ -15,11 +18,6 @@ use Da\User\Model\User as BaseUser;
  * @property string|null $password
  * @property int|null $matriz_id
  * @property string|null $auth_key
- * @property int|null $ativo
- * @property int|null $created_by
- * @property int|null $updated_by
- * @property string|null $created_at
- * @property string|null $updated_at
  *
  * @property Certificado[] $certificados
  * @property Matriz $matriz
@@ -41,14 +39,13 @@ class User extends BaseUser
     public function rules()
     {
         return [
-            [['username', 'matriz_id', 'ativo', 'created_by', 'updated_by'], 'integer'],
+            [['username', 'matriz_id', 'password'], 'required'],
+            [['username', 'matriz_id'], 'integer'],
             [['role'], 'string'],
-            [['created_at', 'updated_at'], 'safe'],
-            [['password', 'auth_key'], 'string', 'max' => 255],
+            [['password', 'auth_key', 'email'], 'string', 'max' => 255],
             [['username'], 'unique'],
             [['matriz_id'], 'exist', 'skipOnError' => true, 'targetClass' => Matriz::class, 'targetAttribute' => ['matriz_id' => 'id']],
             [['role'], 'default', 'value' => 'estudante'],
-            [['ativo'], 'default', 'value' => true],
         ];
     }
 
@@ -64,11 +61,6 @@ class User extends BaseUser
             'password' => Yii::t('app', 'Password'),
             'matriz_id' => Yii::t('app', 'Matriz ID'),
             'auth_key' => Yii::t('app', 'Auth Key'),
-            'ativo' => Yii::t('app', 'Ativo'),
-            'created_by' => Yii::t('app', 'Created By'),
-            'updated_by' => Yii::t('app', 'Updated By'),
-            'created_at' => Yii::t('app', 'Created At'),
-            'updated_at' => Yii::t('app', 'Updated At'),
         ];
     }
 
@@ -115,4 +107,28 @@ class User extends BaseUser
     {
         return $this->username;
     }
+
+    /**
+     * Gets query for [[$model->username]].
+     *
+     * @param $username
+     * @return array|ActiveRecord|null
+     */
+    public static function findByUsername($username)
+    {
+        return self::find()->where(['username' => $username])->one();
+    }
+
+    /**
+     * Gets query for [[$model->username]].
+     *
+     * @param $password
+     * @return bool
+     */
+    public function validatePassword($password)
+    {
+        return Yii::$app->getSecurity()->validatePassword($password, $this->password_hash);
+    }
+
+
 }
