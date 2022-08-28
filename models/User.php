@@ -5,9 +5,12 @@ namespace app\models;
 use Psr\Container\NotFoundExceptionInterface;
 use Yii;
 use yii\base\Exception;
+use yii\behaviors\BlameableBehavior;
+use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
 use Da\User\Model\User as BaseUser;
 use yii\db\ActiveRecord;
+use yii\db\Expression;
 
 /**
  * This is the model class for table "{{%user}}".
@@ -25,6 +28,21 @@ use yii\db\ActiveRecord;
  */
 class User extends BaseUser
 {
+    public function behaviors()
+    {
+        return [
+            'timestampBehaviors' => [
+                'class' => TimestampBehavior::class,
+                'createdAtAttribute' => 'created_at',
+                'updatedAtAttribute' => 'updated_at',
+                'value' => new Expression('NOW()'),
+            ],
+            'blameableBehaviors' => [
+                'class' => BlameableBehavior::class,
+            ],
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */

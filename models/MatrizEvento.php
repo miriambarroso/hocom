@@ -3,6 +3,9 @@
 namespace app\models;
 
 use Yii;
+use yii\behaviors\BlameableBehavior;
+use yii\behaviors\TimestampBehavior;
+use yii\db\Expression;
 
 /**
  * This is the model class for table "{{%matriz_evento}}".
@@ -22,6 +25,21 @@ use Yii;
  */
 class MatrizEvento extends \yii\db\ActiveRecord
 {
+    public function behaviors()
+    {
+        return [
+            'timestampBehaviors' => [
+                'class' => TimestampBehavior::class,
+                'createdAtAttribute' => 'created_at',
+                'updatedAtAttribute' => 'updated_at',
+                'value' => new Expression('NOW()'),
+            ],
+            'blameableBehaviors' => [
+                'class' => BlameableBehavior::class,
+            ],
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -38,8 +56,8 @@ class MatrizEvento extends \yii\db\ActiveRecord
         return [
             [['evento_id', 'matriz_id', 'carga_horaria_max', 'created_by', 'updated_by'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
-            [['evento_id'], 'exist', 'skipOnError' => true, 'targetClass' => Evento::className(), 'targetAttribute' => ['evento_id' => 'id']],
-            [['matriz_id'], 'exist', 'skipOnError' => true, 'targetClass' => Matriz::className(), 'targetAttribute' => ['matriz_id' => 'id']],
+            [['evento_id'], 'exist', 'skipOnError' => true, 'targetClass' => Evento::class, 'targetAttribute' => ['evento_id' => 'id']],
+            [['matriz_id'], 'exist', 'skipOnError' => true, 'targetClass' => Matriz::class, 'targetAttribute' => ['matriz_id' => 'id']],
         ];
     }
 
@@ -67,7 +85,7 @@ class MatrizEvento extends \yii\db\ActiveRecord
      */
     public function getEvento()
     {
-        return $this->hasOne(Evento::className(), ['id' => 'evento_id']);
+        return $this->hasOne(Evento::class, ['id' => 'evento_id']);
     }
 
     /**
@@ -77,7 +95,7 @@ class MatrizEvento extends \yii\db\ActiveRecord
      */
     public function getMatriz()
     {
-        return $this->hasOne(Matriz::className(), ['id' => 'matriz_id']);
+        return $this->hasOne(Matriz::class, ['id' => 'matriz_id']);
     }
 
     /**
@@ -87,15 +105,6 @@ class MatrizEvento extends \yii\db\ActiveRecord
      */
     public function getMatrizSubeventos()
     {
-        return $this->hasMany(MatrizSubevento::className(), ['matriz_evento_id' => 'id']);
-    }
-
-    /**
-     * {@inheritdoc}
-     * @return MatrizEventoQuery the active query used by this AR class.
-     */
-    public static function find()
-    {
-        return new MatrizEventoQuery(get_called_class());
+        return $this->hasMany(MatrizSubevento::class, ['matriz_evento_id' => 'id']);
     }
 }

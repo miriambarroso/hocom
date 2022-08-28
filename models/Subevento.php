@@ -3,7 +3,10 @@
 namespace app\models;
 
 use Yii;
+use yii\behaviors\BlameableBehavior;
+use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
+use yii\db\Expression;
 
 /**
  * This is the model class for table "{{%subevento}}".
@@ -23,6 +26,20 @@ use yii\db\ActiveQuery;
  */
 class Subevento extends \yii\db\ActiveRecord
 {
+    public function behaviors()
+    {
+        return [
+            'timestampBehaviors' => [
+                'class' => TimestampBehavior::class,
+                'createdAtAttribute' => 'created_at',
+                'updatedAtAttribute' => 'updated_at',
+                'value' => new Expression('NOW()'),
+            ],
+            'blameableBehaviors' => [
+                'class' => BlameableBehavior::class,
+            ],
+        ];
+    }
     /**
      * {@inheritdoc}
      */

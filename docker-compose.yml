@@ -33,5 +33,6 @@ services:
     command: bash -c "chmod -R 777 /app/runtime /app/web/assets /app/web/uploads && composer install && php yii migrate --interactive=0 && supervisord -c /etc/supervisor/supervisord.conf"
   adminer:
     image: adminer
+    restart: unless-stopped
     ports:
-      - '7780:8081'
+      - "8089:8080"

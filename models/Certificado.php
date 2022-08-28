@@ -4,8 +4,11 @@ namespace app\models;
 
 use Yii;
 use yii\behaviors\AttributeBehavior;
+use yii\behaviors\BlameableBehavior;
+use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\db\Expression;
 
 /**
  * This is the model class for table "{{%certificado}}".
@@ -52,7 +55,16 @@ class Certificado extends \yii\db\ActiveRecord
                     $dateArray = explode('-', $this->data);
                     return $dateArray[2] . '/' . $dateArray[1] . '/'. $dateArray[0];
                 }
-            ]
+            ],
+            'timestampBehaviors' => [
+                'class' => TimestampBehavior::class,
+                'createdAtAttribute' => 'created_at',
+                'updatedAtAttribute' => 'updated_at',
+                'value' => new Expression('NOW()'),
+            ],
+            'blameableBehaviors' => [
+                'class' => BlameableBehavior::class,
+            ],
         ];
     }
 
